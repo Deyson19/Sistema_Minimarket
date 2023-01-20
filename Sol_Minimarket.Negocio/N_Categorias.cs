@@ -19,5 +19,11 @@ namespace Sol_Minimarket.Negocio
             return datos.Listado_ca(cTexto);
         }
 
+        public static string Guardar_ca(int nOpcion, E_Categorias oCa)
+        {
+            D_Categorias datos = new D_Categorias();
+            return datos.Guardar_ca(nOpcion,oCa);
+        }
+
     }
 }
