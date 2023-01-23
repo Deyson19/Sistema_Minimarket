@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Sol_Minimarket.Presentacion/DB_MinimarketDataSet.Designer.cs
+/Sol_Minimarket.Presentacion/DB_MinimarketDataSet.xsc
+/Sol_Minimarket.Presentacion/DB_MinimarketDataSet.xsd
+/Sol_Minimarket.Presentacion/DB_MinimarketDataSet.xss
