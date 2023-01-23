@@ -177,6 +177,7 @@ namespace Sol_Minimarket.Presentacion
 
 
             Tbp_Principal.SelectedIndex = 0;
+            this._codigo_ca = 0;
         }
 
         private void dgv_Principal_DoubleClick(object sender, EventArgs e)
@@ -190,6 +191,50 @@ namespace Sol_Minimarket.Presentacion
         {
             this.Estado_botones_procesos(false);
             Tbp_Principal.SelectedIndex = 0;
+            this._codigo_ca = 0;
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            string datoGrilla = Convert.ToString(dgv_Principal.CurrentRow.Cells["codigo_ca"].Value);
+
+            if (string.IsNullOrEmpty(datoGrilla))
+            {
+                MessageBox.Show("No hay información para mostrar", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                DialogResult opcion;
+                opcion = MessageBox.Show("¿Estas seguro que deseas eliminar esta categoría?", "AVISO DEL SISTEMA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (opcion == DialogResult.Yes)
+                {
+                    this._codigo_ca = (int)(dgv_Principal.CurrentRow.Cells["codigo_ca"].Value);
+                    string respuesta = string.Empty;
+                    respuesta = N_Categorias.Eliminar_ca(this._codigo_ca);
+                    if (respuesta.Equals("Ok"))
+                    {
+                        this.Listado_ca("%");
+                        this._codigo_ca = 0;
+                        MessageBox.Show("Registro Eliminado", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo realizar la petición.","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Continuemos con las tareas en el sistema.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Listado_ca("%");
+                }
+                /*this._codigo_ca = (int)dgv_Principal.CurrentRow.Cells["codigo_ca"].Value;
+                txtDescripcion_ca.Text = Convert.ToString(dgv_Principal.CurrentRow.Cells["descripcion_ca"].Value);*/
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            this.Listado_ca(txtBuscar.Text.Trim());
         }
     }
 }

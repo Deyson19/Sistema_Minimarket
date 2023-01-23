@@ -25,5 +25,11 @@ namespace Sol_Minimarket.Negocio
             return datos.Guardar_ca(nOpcion,oCa);
         }
 
+        public static string Eliminar_ca(int codigo_ca)
+        {
+            D_Categorias datos = new D_Categorias();
+            return datos.Eliminar_ca(codigo_ca);
+        }
+
     }
 }

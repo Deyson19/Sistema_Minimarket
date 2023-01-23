@@ -70,5 +70,32 @@ namespace Sol_Minimarket.Datos
             }
             return respuesta;
         }
+
+        public string Eliminar_ca(int codigo_ca)
+        {
+            string respuesta = string.Empty;
+            SqlConnection sqlConnection = new SqlConnection();
+            try
+            {
+                sqlConnection = Conexion.getInstance().CrearConexion();
+                SqlCommand comando = new SqlCommand("USP_Eliminar_ca", sqlConnection);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@nCodigo_ca", SqlDbType.Int).Value = codigo_ca;
+                sqlConnection.Open();
+                respuesta = comando.ExecuteNonQuery() == 1 ? "Ok" : "No se pudo realizar la eliminación.";
+            }
+            catch (Exception e)
+            {
+                respuesta = e.Message;
+            }
+            finally
+            {
+                if (sqlConnection.State == ConnectionState.Open)
+                {
+                    sqlConnection.Close();
+                }
+            }
+            return respuesta;
+        }
     }
 }
