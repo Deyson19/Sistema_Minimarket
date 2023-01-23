@@ -46,6 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB_MinimarketDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DB_MinimarketDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Frm_Categorias.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +71,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="DB_MinimarketDataSet.xsc">
+      <DependentUpon>DB_MinimarketDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DB_MinimarketDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DB_MinimarketDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DB_MinimarketDataSet.xss">
+      <DependentUpon>DB_MinimarketDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

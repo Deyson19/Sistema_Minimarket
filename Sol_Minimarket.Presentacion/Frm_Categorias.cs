@@ -20,6 +20,8 @@ namespace Sol_Minimarket.Presentacion
         }
         #region Variables 
         int estadoGuarda = 0;//no hace nada el sistema
+        int _codigo_ca = 0;
+        string _descripcion_ca;
 
         #endregion
         #region MisMetodos
@@ -80,6 +82,23 @@ namespace Sol_Minimarket.Presentacion
             this.btnGuardar.Visible = lEstado;
             this.btnRetornar.Visible = !lEstado;
         }
+        
+        private void Selecciona_item()
+        {
+            string datoGrilla = Convert.ToString(dgv_Principal.CurrentRow.Cells["codigo_ca"].Value);
+
+            if (string.IsNullOrEmpty(datoGrilla))
+            {
+                MessageBox.Show("No hay información para mostrar","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+            else
+            {
+                this._descripcion_ca = (dgv_Principal.CurrentRow.Cells["descripcion_ca"].Value).ToString();
+                this._codigo_ca = (int) dgv_Principal.CurrentRow.Cells["codigo_ca"].Value;
+                txtDescripcion_ca.Text = Convert.ToString(dgv_Principal.CurrentRow.Cells["descripcion_ca"].Value);
+            }
+        }
+        
         #endregion
 
         private void Frm_Categorias_Load(object sender, EventArgs e)
@@ -100,7 +119,7 @@ namespace Sol_Minimarket.Presentacion
             {
                 E_Categorias oCa = new E_Categorias();
                 string respuesta =string.Empty;
-                oCa.Codigo_ca = 0;
+                oCa.Codigo_ca = this._codigo_ca;
                 oCa.Descripcion_ca = txtDescripcion_ca.Text.Trim();
                 respuesta = N_Categorias.Guardar_ca(estadoGuarda,oCa);
 
@@ -115,6 +134,8 @@ namespace Sol_Minimarket.Presentacion
                     txtDescripcion_ca.Text = string.Empty;
                     txtDescripcion_ca.ReadOnly= true; 
                     Tbp_Principal.SelectedIndex= 0;
+
+                    this._codigo_ca = 0;
                 }
                 else
                 {
@@ -138,7 +159,12 @@ namespace Sol_Minimarket.Presentacion
         private void btnActualizar_Click(object sender, EventArgs e)
         {
             estadoGuarda = 2; //Actualiza registro
-
+            this.Estado_botones_principales(false);
+            this.Estado_botones_procesos(true);
+            this.Selecciona_item();
+            Tbp_Principal.SelectedIndex = 1;
+            txtDescripcion_ca.ReadOnly = false;
+            txtDescripcion_ca.Focus();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -150,6 +176,19 @@ namespace Sol_Minimarket.Presentacion
             this.Estado_botones_procesos(false);
 
 
+            Tbp_Principal.SelectedIndex = 0;
+        }
+
+        private void dgv_Principal_DoubleClick(object sender, EventArgs e)
+        {
+            this.Selecciona_item();
+            this.Estado_botones_procesos(false);
+            Tbp_Principal.SelectedIndex = 1;
+        }
+
+        private void btnRetornar_Click(object sender, EventArgs e)
+        {
+            this.Estado_botones_procesos(false);
             Tbp_Principal.SelectedIndex = 0;
         }
     }
